@@ -1,6 +1,6 @@
 import printMe from './print'
 
-require('./css/style.css')
+require('../css/style.css')
 
 const _ = require('lodash')
 
