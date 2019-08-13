@@ -1,8 +1,12 @@
 {
-    "extends": "airbnb-base",
+    "extends": [
+        "airbnb-base",
+        "plugin:vue/recommended"
+    ],
     "env": {
         "es6": true,
-        "browser": true
+        "browser": true,
+        "node": true
     },
     "globals": {
         "Framework": true
@@ -15,6 +19,7 @@
         "no-unused-vars": ["error", { "argsIgnorePattern": "next|value" }]
     },
     "parserOptions": {
-        "sourceType": "module"
+        "sourceType": "module",
+        "parser": "babel-eslint"
     }
 }
