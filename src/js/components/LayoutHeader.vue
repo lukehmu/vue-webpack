@@ -1,11 +1,14 @@
 <template>
-    <div class="navbar navbar-dark bg-dark shadow-sm">
-        <div class="container d-flex justify-content-between">
-            <a href="#" class="navbar-brand d-flex align-items-center">
+  <div class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="container d-flex justify-content-between">
+      <a
+        href="#"
+        class="navbar-brand d-flex align-items-center"
+      >
         {{ pageName }}
       </a>
-        </div>
     </div>
+  </div>
 </template>
 
 
@@ -13,7 +16,10 @@
 export default {
   name: 'LayoutHeader',
   props: {
-    pageName: String
-  }
+    pageName: {
+      type: String,
+      default: '',
+    },
+  },
 }
 </script>

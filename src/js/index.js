@@ -4,6 +4,7 @@ import App from './App.vue'
 require('bootstrap/dist/css/bootstrap.css')
 
 Vue.config.productionTip = false
+Vue.use(require('vue-moment'))
 
 new Vue({
   render: (h) => h(App),
