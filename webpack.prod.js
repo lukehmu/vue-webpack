@@ -7,28 +7,33 @@ module.exports = merge(common, {
   output: {
     filename: '[name].[contenthash].bundle.js',
   },
-  // devtool: 'source-map',
+  devtool: 'source-map',
   optimization: {
-    runtimeChunk: 'single',
     splitChunks: {
       chunks: 'all',
-      maxInitialRequests: Infinity,
-      minSize: 0,
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name(module) {
-            // get the name. E.g. node_modules/packageName/not/this/part.js
-            // or node_modules/packageName
-            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
-
-            // npm package names are URL-safe, but some servers don't like @ symbols
-            return `npm.${packageName.replace('@', '')}`
-          },
-        },
-      },
     },
   },
+  // optimization: {
+  //   runtimeChunk: 'single',
+  //   splitChunks: {
+  //     chunks: 'all',
+  //     maxInitialRequests: Infinity,
+  //     minSize: 0,
+  //     cacheGroups: {
+  //       vendor: {
+  //         test: /[\\/]node_modules[\\/]/,
+  //         name(module) {
+  //           // get the name. E.g. node_modules/packageName/not/this/part.js
+  //           // or node_modules/packageName
+  //           const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
+
+  //           // npm package names are URL-safe, but some servers don't like @ symbols
+  //           return `npm.${packageName.replace('@', '')}`
+  //         },
+  //       },
+  //     },
+  //   },
+  // },
   module: {
     rules: [
       {
@@ -39,6 +44,17 @@ module.exports = merge(common, {
           'sass-loader',
         ],
       },
+      {
+        test: /\.js$/,
+        // Exclude transpiling `node_modules`, except `bootstrap-vue/src`
+        exclude: /node_modules\/(?!bootstrap-vue\/src\/)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        },
+      },
     ],
   },
   plugins: [
@@ -47,4 +63,10 @@ module.exports = merge(common, {
       chunkFilename: '[id].css',
     }),
   ],
+  resolve: {
+    alias: {
+      // Alias for using source of BootstrapVue
+      'bootstrap-vue$': 'bootstrap-vue/src/index.js',
+    },
+  },
 })
