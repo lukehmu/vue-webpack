@@ -50,7 +50,7 @@
 <script>
 import axios from 'axios'
 // public token
-const bearerToken = 'RgMzQoWn2IWzkoimXi-qBmbEbDEkkLt0vr4NOQra9VPOpx1knS1Mb06JA5ixf5Mr'
+const bearerToken = 'OG2Z3ka4w4DLdS4G2ZiXhrHQp7qjdMQUM46lHfZyOSzb7j56UY1W2PSwlcZSR0r2'
 
 axios.defaults.headers.common = {
   Authorization: `Bearer ${bearerToken}`,
@@ -91,10 +91,11 @@ export default {
          }
         `
       try {
-        const res = await axios.post('http://headless.test/api', {
+        const res = await axios.post('http://craftql.test/api', {
           query: beerQuery,
         })
         this.beerList = res.data.data.entries
+        console.log(this.beerList)
       } catch (e) {
         console.log('err', e)
       }
