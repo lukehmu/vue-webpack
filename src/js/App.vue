@@ -19,9 +19,6 @@ export default {
     Graph,
   },
 }
-
 </script>
 
-<style>
-
-</style>
+<style></style>

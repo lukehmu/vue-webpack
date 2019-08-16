@@ -1,7 +1,10 @@
 {
     "extends": [
+        "plugin:vue/recommended",
         "airbnb-base",
-        "plugin:vue/recommended"
+    ],
+    "plugins": [
+        "vue"
     ],
     "env": {
         "es6": true,
@@ -17,7 +20,11 @@
         "linebreak-style": [0, "error", "windows"],
         //fixes an issue with Express
         "no-unused-vars": ["error", { "argsIgnorePattern": "next|value" }],
-        "vue/html-self-closing": "off"
+        "vue/html-self-closing": "off",
+        "vue/html-closing-bracket-newline": ["error", {
+            "singleline": "never",
+            "multiline": "always"
+          }],
     },
     "parserOptions": {
         "sourceType": "module",

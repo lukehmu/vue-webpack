@@ -21,11 +21,12 @@
             class="card-img-top"
             :src="beer.image[0].url"
             alt="Card image cap"
-          >
+          />
           <div class="card-body">
             <h2 class="card-title">
               {{ beer.title }}
             </h2>
+
             <p class="card-subtitle mb-2 text-muted">
               ABV {{ beer.percentage }}%
             </p>
@@ -92,11 +93,9 @@ export default {
          }
         `
       try {
-        const res = await axios.post(
-          'http://headless.test/api', {
-            query: beerQuery,
-          },
-        )
+        const res = await axios.post('http://headless.test/api', {
+          query: beerQuery,
+        })
         this.beerList = res.data.data.entries
       } catch (e) {
         console.log('err', e)
@@ -104,11 +103,9 @@ export default {
     },
   },
 }
-
 </script>
 <style scoped>
-  /* .card-img-top {
+/* .card-img-top {
   width: 33%
 } */
-
 </style>

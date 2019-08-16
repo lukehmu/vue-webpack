@@ -4,13 +4,10 @@
       <a
         href="#"
         class="navbar-brand d-flex align-items-center"
-      >
-        {{ pageName }}
-      </a>
+      >{{ pageName }}</a>
     </div>
   </div>
 </template>
-
 
 <script>
 export default {

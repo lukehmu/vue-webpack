@@ -17,7 +17,6 @@
   </footer>
 </template>
 
-
 <script>
 export default {
   name: 'LayoutFooter',
@@ -28,5 +27,4 @@ export default {
     },
   },
 }
-
 </script>
