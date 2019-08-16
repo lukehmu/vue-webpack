@@ -1,9 +1,9 @@
 import Vue from 'vue'
+import { BootstrapVue } from 'bootstrap-vue'
 import App from './App.vue'
-import 'bootstrap'
+import '../sass/custom.scss'
 
-// require('bootstrap/dist/css/bootstrap.css')
-
+Vue.use(BootstrapVue)
 
 Vue.config.productionTip = false
 

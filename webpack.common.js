@@ -1,3 +1,5 @@
+require('dotenv').config()
+const webpack = require('webpack')
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin') // eslint-disable-line import/no-extraneous-dependencies
 const { CleanWebpackPlugin } = require('clean-webpack-plugin') // eslint-disable-line import/no-extraneous-dependencies
@@ -7,6 +9,7 @@ module.exports = {
   entry: {
     app: './src/js/index.js',
   },
+  target: 'web',
   output: {
     path: path.resolve(__dirname, 'dist'),
   },
@@ -15,6 +18,9 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './src/public/index.html',
+    }),
+    new webpack.DefinePlugin({
+      'process.env.BEARER_TOKEN': `"${process.env.BEARER_TOKEN}"`,
     }),
   ],
   module: {

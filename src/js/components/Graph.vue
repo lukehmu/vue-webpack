@@ -1,56 +1,46 @@
 <template>
   <div class="container">
-    <h1>Got some beer right here</h1>
-    <div class="row">
-      <button
-        type="button"
-        class="btn btn-info"
-        @click="getBeer"
+    <b-card-group deck>
+      <b-card
+        v-for="beer in beerList"
+        :key="beer.id"
+        no-body
+        style="max-width: 20rem;"
+        :img-src="beer.image[0].url"
+        img-alt="Image"
+        img-top
       >
-        Refresh Beer
-      </button>
-    </div>
-    <div>
-      <div class="card-group">
-        <div
-          v-for="beer in beerList"
-          :key="beer.id"
-          class="card"
-        >
-          <img
-            class="card-img-top"
-            :src="beer.image[0].url"
-            alt="Card image cap"
-          />
-          <div class="card-body">
-            <h2 class="card-title">
-              {{ beer.title }}
-            </h2>
+        <b-card-body>
+          <b-card-title>{{ beer.title }}</b-card-title>
+          <b-card-sub-title class="mb-2">
+            ABV: {{ beer.percentage }}%
+          </b-card-sub-title>
+          <b-card-text>
+            {{ beer.description }}
+          </b-card-text>
+        </b-card-body>
 
-            <p class="card-subtitle mb-2 text-muted">
-              ABV {{ beer.percentage }}%
-            </p>
-            <p class="card-text">
-              {{ beer.description }}
-            </p>
-            <a
-              :href="beer.uri"
-              class="card-link"
-            >Detail page [WIP]</a>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted">Added: {{ beer.dateCreated | stringToDate() }}</small>
-          </div>
-        </div>
-      </div>
-    </div>
+        <b-list-group flush>
+          <b-list-group-item>Leaving this in for later</b-list-group-item>
+        </b-list-group>
+
+        <b-card-body>
+          <a
+            href="#"
+            class="card-link"
+          >Card link</a>
+        </b-card-body>
+
+        <b-card-footer>Added: {{ beer.dateCreated | stringToDate }}</b-card-footer>
+      </b-card>
+    </b-card-group>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 // public token
-const bearerToken = 'OG2Z3ka4w4DLdS4G2ZiXhrHQp7qjdMQUM46lHfZyOSzb7j56UY1W2PSwlcZSR0r2'
+const bearerToken = process.env.BEARER_TOKEN
 
 axios.defaults.headers.common = {
   Authorization: `Bearer ${bearerToken}`,
@@ -91,7 +81,7 @@ export default {
          }
         `
       try {
-        const res = await axios.post('http://craftql.test/api', {
+        const res = await axios.post('http://headless.test/api', {
           query: beerQuery,
         })
         this.beerList = res.data.data.entries
