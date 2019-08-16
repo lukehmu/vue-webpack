@@ -56,15 +56,13 @@ axios.defaults.headers.common = {
   Authorization: `Bearer ${bearerToken}`,
 }
 
-const moment = require('moment')
-
 export default {
   name: 'Graph',
   filters: {
     stringToDate(value) {
       const valueInt = parseInt(value, 0)
-      // console.log(moment.unix(valueInt, "MM-DD-YYYY"))
-      return `${moment.unix(valueInt).format('MM-DD-YYYY')}`
+      const entryDate = new Date(valueInt * 1000).toLocaleDateString()
+      return `${entryDate}`
     },
   },
   data() {
