@@ -1,15 +1,23 @@
 <template>
   <div id="app">
-    <LayoutHeader page-name="hello" />
-    <Graph />
-    <LayoutFooter org-name="footer company name" />
+    <LayoutHeader page-name="Vue routing with CraftQL" />
+    <transition
+      name="fade"
+      appear
+      mode="out-in"
+    >
+      <router-view></router-view>
+    </transition>
+    <LayoutFooter
+      org-name="
+footer company name"
+    />
   </div>
 </template>
 
 <script>
 import LayoutHeader from './components/LayoutHeader.vue'
 import LayoutFooter from './components/LayoutFooter.vue'
-import Graph from './components/Graph.vue'
 
 
 export default {
@@ -17,9 +25,15 @@ export default {
   components: {
     LayoutHeader,
     LayoutFooter,
-    Graph,
   },
 }
 </script>
 
-<style></style>
+<style>
+.fade-enter-active, .fade-leave-active {
+  transition: all 0.3s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+</style>

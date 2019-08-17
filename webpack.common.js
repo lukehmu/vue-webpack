@@ -21,6 +21,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env.BEARER_TOKEN': `"${process.env.BEARER_TOKEN}"`,
+      'process.env.API_URL': `"${process.env.API_URL}"`,
     }),
   ],
   module: {
