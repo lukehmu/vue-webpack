@@ -1,25 +1,20 @@
 <template>
   <div class="container">
-    <b-button
-      @click="getBeer"
-    >
-      Get beer
-    </b-button>
     <b-card
-      v-if="beerItem.title"
+      v-if="beersState == 'loaded'"
       no-body
       style="max-width: 20rem;"
-      :img-src="beerItem.image[0].url"
+      :img-src="singleBeer.image[0].url"
       img-alt="Image"
       img-top
     >
       <b-card-body>
-        <b-card-title>{{ beerItem.title }}</b-card-title>
+        <b-card-title>{{ singleBeer.title }}</b-card-title>
         <b-card-sub-title class="mb-2">
-          ABV: {{ beerItem.percentage }}%
+          ABV: {{ singleBeer.percentage }}%
         </b-card-sub-title>
         <b-card-text>
-          {{ beerItem.description }}
+          {{ singleBeer.description }}
         </b-card-text>
       </b-card-body>
 
@@ -31,18 +26,18 @@
         <!-- <b-link :to="detail">
             Link text - Bootstrap
           </b-link> -->
-        <router-link :to="{ name: 'beer-detail', params: { beerItem, slug: beerItem.slug }}">
+        <router-link :to="{ name: 'beer-detail', params: { singleBeer, slug: singleBeer.slug }}">
           Link text - Vue Router
         </router-link>
       </b-card-body>
 
-      <b-card-footer>Added: {{ beerItem.dateCreated }}</b-card-footer>
+      <b-card-footer>Added: {{ singleBeer.dateCreated }}</b-card-footer>
     </b-card>
     <div
       v-else
       class="container"
     >
-      {{ beer.message }}
+      <!-- {{ beer.message }} -->
     </div>
   </div>
 </template>
@@ -86,11 +81,18 @@ export default {
       console.log(this.beer.title)
       return 'uh oh'
     },
+    singleBeer() {
+      return this.$store.getters.getBeers.find((beer) => beer.slug === this.slug)
+    },
+    beersState() {
+      return this.$store.getters.getBeersStatus
+    },
   },
   created() {
     if (this.beer.message) {
       this.getBeer()
     }
+    this.$store.dispatch('loadBeer')
   },
   methods: {
     async getBeer() {

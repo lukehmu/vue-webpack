@@ -25,6 +25,23 @@
             "singleline": "never",
             "multiline": "always"
           }],
+          "no-param-reassign": [
+            "error",
+            {
+              "props": true,
+              "ignorePropertyModificationsFor": [
+                "state",
+                "acc",
+                "e",
+                "ctx",
+                "req",
+                "request",
+                "res",
+                "response",
+                "$scope"
+              ]
+            }
+          ],
     },
     "parserOptions": {
         "sourceType": "module",

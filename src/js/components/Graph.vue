@@ -1,30 +1,27 @@
 <template>
   <div class="container">
-    <div v-if="dataLoading">
+    <div v-if="beersState == 'pending'">
       Loading...
     </div>
-    <div v-if="dataError">
+    <div v-if="beersState == 'error'">
       Error:<code> {{ dataError }}</code>
     </div>
     <b-button
-      v-if="dataLoaded"
+      v-if="beersState == 'loaded'"
       @click="shuffle"
     >
       Shuffle
     </b-button>
-    <b-button
-      @click="getBeers"
-    >
+    <!-- <b-button>
       Refresh data
-    </b-button>
+    </b-button> -->
     <transition-group
-      v-if="dataLoaded"
       name="flip-list"
       tag="b-card-group"
       deck
     >
       <b-card
-        v-for="beer in beerList"
+        v-for="beer in beers"
         :key="beer.id"
         no-body
         style="max-width: 20rem;"
@@ -47,9 +44,6 @@
         </b-list-group>
 
         <b-card-body>
-          <!-- <b-link :to="detail">
-            Link text - Bootstrap
-          </b-link> -->
           <router-link :to="{ name: 'beer-detail', params: { beer, slug: beer.slug }}">
             Link text - Vue Router
           </router-link>
@@ -62,14 +56,14 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 import { shuffle } from 'lodash'
 // public token
-const bearerToken = process.env.BEARER_TOKEN
+// const bearerToken = process.env.BEARER_TOKEN
 
-axios.defaults.headers.common = {
-  Authorization: `Bearer ${bearerToken}`,
-}
+// axios.defaults.headers.common = {
+//   Authorization: `Bearer ${bearerToken}`,
+// }
 
 export default {
   name: 'Graph',
@@ -90,49 +84,58 @@ export default {
   },
   data() {
     return {
-      beerList: '',
-      dataLoading: false,
-      dataLoaded: null,
-      dataError: null,
+      // beerList: '',
+      // dataLoading: false,
+      // dataLoaded: null,
+      // dataError: null,
     }
   },
+  computed: {
+    beers() {
+      return this.$store.getters.getBeers
+    },
+    beersState() {
+      return this.$store.getters.getBeersStatus
+    },
+  },
   watch: {
-    $route: 'getBeers',
+    // $route: 'getBeers',
   },
   created() {
-    this.getBeers()
+    // this.getBeers()
+    this.$store.dispatch('loadBeer')
   },
   methods: {
-    async getBeers() {
-      this.dataLoading = true
-      const beerQuery = `
-         {
-           entries(limit:5) {
-             ...on Beer {
-               id
-               slug
-               uri
-               title
-               description
-               dateCreated
-               percentage
-               image { url }
-             }
-           }
-         }
-        `
-      await axios.post(process.env.API_URL, {
-        query: beerQuery,
-      }).then((res) => {
-        this.beerList = res.data.data.entries
-        this.dataLoaded = true
-        this.dataLoading = false
-      }).catch((error) => {
-        console.log('err', error)
-        this.dataLoading = false
-        this.dataError = error
-      })
-    },
+    // async getBeers() {
+    //   this.dataLoading = true
+    //   const beerQuery = `
+    //      {
+    //        entries(limit:5) {
+    //          ...on Beer {
+    //            id
+    //            slug
+    //            uri
+    //            title
+    //            description
+    //            dateCreated
+    //            percentage
+    //            image { url }
+    //          }
+    //        }
+    //      }
+    //     `
+    //   await axios.post(process.env.API_URL, {
+    //     query: beerQuery,
+    //   }).then((res) => {
+    //     this.beerList = res.data.data.entries
+    //     this.dataLoaded = true
+    //     this.dataLoading = false
+    //   }).catch((error) => {
+    //     console.log('err', error)
+    //     this.dataLoading = false
+    //     this.dataError = error
+    //   })
+    // },
     shuffle() {
       this.beerList = shuffle(this.beerList)
     },
