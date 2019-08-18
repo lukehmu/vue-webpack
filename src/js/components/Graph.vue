@@ -4,7 +4,7 @@
       Loading...
     </div>
     <div v-if="dataError">
-      Error...
+      Error:<code> {{ dataError }}</code>
     </div>
     <b-button
       v-if="dataLoaded"
@@ -13,7 +13,7 @@
       Shuffle
     </b-button>
     <b-button
-      @click="getBeer"
+      @click="getBeers"
     >
       Refresh data
     </b-button>
@@ -50,7 +50,7 @@
           <!-- <b-link :to="detail">
             Link text - Bootstrap
           </b-link> -->
-          <router-link :to="{ name: 'beer-detail', params: { slug: beer.slug }}">
+          <router-link :to="{ name: 'beer-detail', params: { beer, slug: beer.slug }}">
             Link text - Vue Router
           </router-link>
         </b-card-body>
@@ -70,7 +70,6 @@ const bearerToken = process.env.BEARER_TOKEN
 axios.defaults.headers.common = {
   Authorization: `Bearer ${bearerToken}`,
 }
-console.log(bearerToken)
 
 export default {
   name: 'Graph',
@@ -81,6 +80,14 @@ export default {
       return `${entryDate}`
     },
   },
+  props: {
+    // beerList: {
+    //   type: Array,
+    //   default() {
+    //     return []
+    //   },
+    // },
+  },
   data() {
     return {
       beerList: '',
@@ -90,13 +97,13 @@ export default {
     }
   },
   watch: {
-    $route: 'getBeer',
+    $route: 'getBeers',
   },
   created() {
-    this.getBeer()
+    this.getBeers()
   },
   methods: {
-    async getBeer() {
+    async getBeers() {
       this.dataLoading = true
       const beerQuery = `
          {
@@ -114,18 +121,17 @@ export default {
            }
          }
         `
-      try {
-        const res = await axios.post(process.env.API_URL, {
-          query: beerQuery,
-        })
+      await axios.post(process.env.API_URL, {
+        query: beerQuery,
+      }).then((res) => {
         this.beerList = res.data.data.entries
         this.dataLoaded = true
         this.dataLoading = false
-      } catch (e) {
-        console.log('err', e)
+      }).catch((error) => {
+        console.log('err', error)
         this.dataLoading = false
-        this.dataError = true
-      }
+        this.dataError = error
+      })
     },
     shuffle() {
       this.beerList = shuffle(this.beerList)

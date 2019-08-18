@@ -11,6 +11,7 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Graph,
+      props: true,
     },
     {
       path: '/detail/:slug',
