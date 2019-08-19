@@ -42,13 +42,6 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
-// public token
-const bearerToken = process.env.BEARER_TOKEN
-
-axios.defaults.headers.common = {
-  Authorization: `Bearer ${bearerToken}`,
-}
 export default {
   name: 'Detail',
   props: {
@@ -72,15 +65,6 @@ export default {
     }
   },
   computed: {
-    beerItem() {
-      if (this.beer.message) {
-        return this.beerResult
-      } if (this.beer.title) {
-        return this.beer
-      }
-      console.log(this.beer.title)
-      return 'uh oh'
-    },
     singleBeer() {
       return this.$store.getters.getBeers.find((beer) => beer.slug === this.slug)
     },
@@ -89,44 +73,10 @@ export default {
     },
   },
   created() {
-    if (this.beer.message) {
-      this.getBeer()
-    }
     this.$store.dispatch('loadBeer')
   },
   methods: {
-    async getBeer() {
-      this.dataLoading = true
-      const beerQuery = `
-         {
-           entries(slug: "${this.slug}" limit:1) {
-             ...on Beer {
-               id
-               slug
-               uri
-               title
-               description
-               dateCreated
-               percentage
-               image { url }
-             }
-           }
-         }
-        `
 
-      await axios.post(process.env.API_URL, {
-        query: beerQuery,
-      }).then((res) => {
-        const [singleBeer] = res.data.data.entries
-        this.beerResult = singleBeer
-        this.dataLoaded = true
-        this.dataLoading = false
-      }).catch((error) => {
-        console.log(error.message)
-        this.dataLoading = false
-        this.dataError = error
-      })
-    },
   },
 }
 </script>

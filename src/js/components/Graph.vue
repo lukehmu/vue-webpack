@@ -21,7 +21,7 @@
       deck
     >
       <b-card
-        v-for="beer in beers"
+        v-for="beer in sharedState.state.beers"
         :key="beer.id"
         no-body
         style="max-width: 20rem;"
@@ -56,14 +56,8 @@
 </template>
 
 <script>
-// import axios from 'axios'
-import { shuffle } from 'lodash'
-// public token
-// const bearerToken = process.env.BEARER_TOKEN
-
-// axios.defaults.headers.common = {
-//   Authorization: `Bearer ${bearerToken}`,
-// }
+import shuffle from 'lodash.shuffle'
+// import { mapGetters } from 'vuex'
 
 export default {
   name: 'Graph',
@@ -75,19 +69,11 @@ export default {
     },
   },
   props: {
-    // beerList: {
-    //   type: Array,
-    //   default() {
-    //     return []
-    //   },
-    // },
   },
   data() {
     return {
-      // beerList: '',
-      // dataLoading: false,
-      // dataLoaded: null,
-      // dataError: null,
+      sharedState: this.$store,
+      beerList: '',
     }
   },
   computed: {
@@ -104,6 +90,9 @@ export default {
   created() {
     // this.getBeers()
     this.$store.dispatch('loadBeer')
+  },
+  mounted() {
+    this.beerList = this.beers()
   },
   methods: {
     // async getBeers() {
@@ -137,7 +126,7 @@ export default {
     //   })
     // },
     shuffle() {
-      this.beerList = shuffle(this.beerList)
+      this.sharedState.state.beers = shuffle(this.sharedState.state.beers)
     },
   },
 }

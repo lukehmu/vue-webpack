@@ -69,8 +69,8 @@ const getters = {
   getBeersStatus(state) {
     return state.beersStatus
   },
-  getBeer(state) {
-    return state.beers
+  getBeer(state, slug) {
+    return state.beers.find((beer) => beer.slug === slug)
   },
 }
 

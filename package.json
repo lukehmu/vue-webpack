@@ -32,6 +32,7 @@
     "style-loader": "^1.0.0",
     "vue-loader": "^15.7.1",
     "vue-template-compiler": "^2.6.10",
+    "webpack-bundle-analyzer": "^3.4.1",
     "webpack-cli": "^3.3.6",
     "webpack-dev-server": "^3.8.0",
     "webpack-merge": "^4.2.1"
@@ -41,7 +42,6 @@
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.28",
     "dotenv": "^8.0.0",
-    "lodash": "^4.17.15",
     "lodash.shuffle": "^4.2.0",
     "mini-css-extract-plugin": "^0.8.0",
     "popper.js": "^1.15.0",

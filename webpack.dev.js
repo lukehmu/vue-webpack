@@ -1,4 +1,5 @@
 const merge = require('webpack-merge') // eslint-disable-line import/no-extraneous-dependencies
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer') // eslint-disable-line import/no-extraneous-dependencies
 const common = require('./webpack.common.js')
 
 module.exports = merge(common, {
@@ -8,6 +9,9 @@ module.exports = merge(common, {
     contentBase: './dist',
     hot: true,
   },
+  plugins: [
+    new BundleAnalyzerPlugin({ analyzerMode: 'disabled' }),
+  ],
   module: {
     rules: [
       {
