@@ -21,11 +21,7 @@
       <b-list-group flush>
         <b-list-group-item>Leaving this in for later</b-list-group-item>
       </b-list-group>
-
       <b-card-body>
-        <!-- <b-link :to="detail">
-            Link text - Bootstrap
-          </b-link> -->
         <router-link :to="{ name: 'beer-detail', params: { singleBeer, slug: singleBeer.slug }}">
           Link text - Vue Router
         </router-link>

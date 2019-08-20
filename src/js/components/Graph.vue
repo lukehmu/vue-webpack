@@ -85,53 +85,20 @@ export default {
     },
   },
   watch: {
-    // $route: 'getBeers',
   },
   created() {
-    // this.getBeers()
     this.$store.dispatch('loadBeer')
   },
   mounted() {
-    this.beerList = this.beers()
   },
   methods: {
-    // async getBeers() {
-    //   this.dataLoading = true
-    //   const beerQuery = `
-    //      {
-    //        entries(limit:5) {
-    //          ...on Beer {
-    //            id
-    //            slug
-    //            uri
-    //            title
-    //            description
-    //            dateCreated
-    //            percentage
-    //            image { url }
-    //          }
-    //        }
-    //      }
-    //     `
-    //   await axios.post(process.env.API_URL, {
-    //     query: beerQuery,
-    //   }).then((res) => {
-    //     this.beerList = res.data.data.entries
-    //     this.dataLoaded = true
-    //     this.dataLoading = false
-    //   }).catch((error) => {
-    //     console.log('err', error)
-    //     this.dataLoading = false
-    //     this.dataError = error
-    //   })
-    // },
     shuffle() {
       this.sharedState.state.beers = shuffle(this.sharedState.state.beers)
     },
   },
 }
 </script>
-<style>
+<style lang="scss">
 .list-enter-active, .list-leave-active {
   transition: all 0.3s;
 }

@@ -19,7 +19,6 @@ footer company name"
 import LayoutHeader from './components/LayoutHeader.vue'
 import LayoutFooter from './components/LayoutFooter.vue'
 
-
 export default {
   name: 'App',
   components: {
@@ -29,7 +28,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .fade-enter-active, .fade-leave-active {
   transition: all 0.3s;
 }
