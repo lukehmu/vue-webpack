@@ -21,11 +21,11 @@
       <b-list-group flush>
         <b-list-group-item>Leaving this in for later</b-list-group-item>
       </b-list-group>
-      <b-card-body>
+      <!-- <b-card-body>
         <router-link :to="{ name: 'beer-detail', params: { singleBeer, slug: singleBeer.slug }}">
           Link text - Vue Router
         </router-link>
-      </b-card-body>
+      </b-card-body> -->
 
       <b-card-footer>Added: {{ singleBeer.dateCreated }}</b-card-footer>
     </b-card>
