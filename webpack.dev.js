@@ -8,6 +8,10 @@ module.exports = merge(common, {
   devServer: {
     contentBase: './dist',
     hot: true,
+    historyApiFallback: true,
+  },
+  output: {
+    publicPath: '/',
   },
   plugins: [
     new BundleAnalyzerPlugin({ analyzerMode: 'disabled' }),

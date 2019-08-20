@@ -60,7 +60,7 @@ import shuffle from 'lodash.shuffle'
 // import { mapGetters } from 'vuex'
 
 export default {
-  name: 'Graph',
+  name: 'CardList',
   filters: {
     stringToDate(value) {
       const valueInt = parseInt(value, 0)

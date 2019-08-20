@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Graph from '../components/Graph.vue'
+import CardList from '../components/CardList.vue'
 import Detail from '../components/Detail.vue'
 
 Vue.use(Router)
@@ -11,7 +11,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Graph,
+      component: CardList,
       props: true,
     },
     {
@@ -20,11 +20,11 @@ export default new Router({
       component: Detail,
       props: true,
     },
-    {
-      path: '*',
-      name: '404',
-      component: { template: '<div class="container">404 - Nothing here</div>' },
-    },
+    // {
+    //   path: '*',
+    //   name: '404',
+    //   component: { template: '<div class="container">404 - Nothing here</div>' },
+    // },
   ],
   scrollBehavior(to, from, savedPosition) {
     return { x: 0, y: 0 }

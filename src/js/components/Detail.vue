@@ -48,13 +48,13 @@ export default {
     beer: {
       type: Object,
       default() {
-        return { message: 'No props passed from Graph' }
+        return { message: 'No props passed from CardList' }
       },
     },
   },
   data() {
     return {
-      beerResult: 'No need to go to the API - already have props from Graph',
+      beerResult: 'No need to go to the API - already have props from CardList',
       dataLoaded: null,
       dataLoading: false,
       dataError: null,
