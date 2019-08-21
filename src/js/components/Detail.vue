@@ -1,43 +1,37 @@
 <template>
-  <div class="container">
-    <b-card
-      v-if="beersState == 'loaded'"
-      no-body
-      style="max-width: 20rem;"
-      :img-src="singleBeer.image[0].url"
-      img-alt="Image"
-      img-top
-    >
-      <b-card-body>
-        <b-card-title>{{ singleBeer.title }}</b-card-title>
-        <b-card-sub-title class="mb-2">
-          ABV: {{ singleBeer.percentage }}%
-        </b-card-sub-title>
-        <b-card-text>
-          {{ singleBeer.description }}
-        </b-card-text>
-      </b-card-body>
-
-      <b-list-group flush>
-        <b-list-group-item>Leaving this in for later</b-list-group-item>
-      </b-list-group>
-      <b-list-group flush>
-        <b-list-group-item>Leaving this in for later</b-list-group-item>
-      </b-list-group>
-
-      <b-card-footer>Added: {{ singleBeer.dateCreated }}</b-card-footer>
-    </b-card>
-    <div
-      v-else
-      class="container"
-    >
-      <!-- {{ beer.message }} -->
-    </div>
-  </div>
+  <v-container fluid>
+    <v-item-group>
+      <div v-if="beersState == 'pending'">
+        Loading...
+      </div>
+      <div v-if="beersState == 'error'">
+        Error:<code> {{ dataError }}</code>
+      </div>
+    </v-item-group>
+    <v-item-group>
+      <v-container>
+        <v-row>
+          <Card
+            :image-url="singleBeer.image[0].url"
+            :title="singleBeer.title"
+            :percentage="singleBeer.percentage"
+            :description="singleBeer.description"
+            :date-created="singleBeer.dateCreated"
+          >
+          </Card>
+        </v-row>
+      </v-container>
+    </v-item-group>
+  </v-container>
 </template>
 <script>
+import Card from './Card.vue'
+
 export default {
   name: 'Detail',
+  components: {
+    Card,
+  },
   props: {
     slug: {
       type: String,

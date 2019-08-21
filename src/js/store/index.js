@@ -42,26 +42,17 @@ const actions = {
              }
            }
           `
-    // router.currentRoute.query.token
     const postURL = router.currentRoute.query['x-craft-preview'] ? `${process.env.API_URL}?token=${router.currentRoute.query.token}` : process.env.API_URL
     await axios.post(postURL, {
       query: beerQuery,
-      // params: { token: '7DJObxoCMsod30DodUeC0Ion3J_UX_Nh', 'x-craft-preview': 'y3oexr2RVq' },
     }).then((res) => res.data.data.entries)
       .then((beers) => {
         commit('SET_BEERS', beers)
         commit('SET_BEERSSTATUS', 'loaded')
       })
-
-    //   this.beerList = res.data.data.entries
-
-    //   this.dataLoaded = true
-    //   this.dataLoading = false
       .catch((error) => {
         console.log('err', error)
         commit('SET_BEERSSTATUS', 'error')
-        //   this.dataLoading = false
-        //   this.dataError = error
       })
   },
 

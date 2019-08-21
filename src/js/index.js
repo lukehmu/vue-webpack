@@ -1,24 +1,16 @@
 import Vue from 'vue'
-// import { BootstrapVue } from 'bootstrap-vue'
-import { Card, ListGroup, Button } from 'bootstrap-vue/es/components'
 import router from './router'
 import store from './store'
-import App from './App.vue'
-import '../sass/custom.scss'
 import vuetify from './plugins/vuetify'
+import App from './App.vue'
+// import '../sass/custom.scss'
 
-
-Vue.use(Card)
-Vue.use(ListGroup)
-Vue.use(Button)
-// Vue.use(BootstrapVue)
-// const DetailPage = { template: '<div>detail</div>' }
-// const routes = [
-//   { path: '/detail', component: DetailPage },
-// ]
-// const router = new VueRouter({
-//   routes, // short for `routes: routes`
-// })
+Vue.filter('stringToDate', (value) => {
+  if (!value) return ''
+  const valueInt = parseInt(value, 0)
+  const entryDate = new Date(valueInt * 1000).toLocaleDateString()
+  return `${entryDate}`
+})
 
 Vue.config.productionTip = false
 

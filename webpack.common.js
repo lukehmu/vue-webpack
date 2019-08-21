@@ -42,12 +42,20 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
       },
+      {
+        test: /\.(ttf|eot|woff|woff2)$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: 'fonts/[name].[ext]',
+          },
+        },
+      },
     ],
   },
   resolve: {
     alias: {
       vue$: 'vue/dist/vue.esm.js',
-      'bootstrap-vue$': 'bootstrap-vue/src/index.js',
     },
   },
 }

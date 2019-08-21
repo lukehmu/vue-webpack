@@ -5,7 +5,7 @@ I have created this project to learn:
 - How to customise a Webpack config
 I deliberately did not use [https://cli.vuejs.org/](Vue CLI), as I wanted to gain a better understanding of how Webpack works
 
-I am using [https://bootstrap-vue.js.org/](BootstrapVue) for simplicity, although it adds huge JS & CSS weight and I cannot work out how to reduce the size via tree shaking 😞.
+I am using [https://vuetifyjs.com](Vuetify) for the UI
 
 I will write a proper readme at some point.
 Out of the box, this will only work with the [CraftQL Craft CMS Plugin](https://github.com/markhuot/craftql) as it accepts & outputs GraphQL in a specific format.

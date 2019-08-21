@@ -1,72 +1,53 @@
 <template>
-  <div class="container">
-    <div v-if="beersState == 'pending'">
-      Loading...
-    </div>
-    <div v-if="beersState == 'error'">
-      Error:<code> {{ dataError }}</code>
-    </div>
-    <b-button
-      v-if="beersState == 'loaded'"
-      @click="shuffle"
-    >
-      Shuffle
-    </b-button>
-    <!-- <b-button>
-      Refresh data
-    </b-button> -->
-    <transition-group
-      name="flip-list"
-      tag="b-card-group"
-      deck
-    >
-      <b-card
-        v-for="beer in sharedState.state.beers"
-        :key="beer.id"
-        no-body
-        style="max-width: 20rem;"
-        :img-src="beer.image[0].url"
-        img-alt="Image"
-        img-top
+  <v-container fluid>
+    <v-item-group>
+      <div v-if="beersState == 'pending'">
+        Loading...
+      </div>
+      <div v-if="beersState == 'error'">
+        Error:<code> {{ dataError }}</code>
+      </div>
+      <v-btn
+        v-if="beersState == 'loaded'"
+        @click="shuffle"
       >
-        <b-card-body>
-          <b-card-title>{{ beer.title }}</b-card-title>
-          <b-card-sub-title class="mb-2">
-            ABV: {{ beer.percentage }}%
-          </b-card-sub-title>
-          <b-card-text>
-            {{ beer.description }}
-          </b-card-text>
-        </b-card-body>
-
-        <b-list-group flush>
-          <b-list-group-item>Leaving this in for later</b-list-group-item>
-        </b-list-group>
-
-        <b-card-body>
-          <router-link :to="{ name: 'beer-detail', params: { slug: beer.slug }}">
-            Link text - Vue Router
-          </router-link>
-        </b-card-body>
-
-        <b-card-footer>Added: {{ beer.dateCreated | stringToDate }}</b-card-footer>
-      </b-card>
-    </transition-group>
-  </div>
+        Shuffle
+      </v-btn>
+    </v-item-group>
+    <v-item-group>
+      <!-- <v-row> -->
+      <transition-group
+        tag="div"
+        name="flip-list"
+        width="100%"
+        class="row"
+      >
+        <Card
+          v-for="beer in sharedState.state.beers"
+          :key="beer.id"
+          :image-url="beer.image[0].url"
+          :title="beer.title"
+          :percentage="beer.percentage"
+          :description="beer.description"
+          :slug="beer.slug"
+        >
+        </Card>
+      </transition-group>
+      <!-- </v-row> -->
+    </v-item-group>
+  </v-container>
 </template>
 
 <script>
 import shuffle from 'lodash.shuffle'
-// import { mapGetters } from 'vuex'
+import { VContainer } from 'vuetify/lib'
+import Card from './Card.vue'
 
 export default {
   name: 'CardList',
-  filters: {
-    stringToDate(value) {
-      const valueInt = parseInt(value, 0)
-      const entryDate = new Date(valueInt * 1000).toLocaleDateString()
-      return `${entryDate}`
-    },
+  components: {
+    Card,
+    VContainer,
   },
   props: {
   },
