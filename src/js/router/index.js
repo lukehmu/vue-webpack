@@ -7,9 +7,9 @@ Vue.use(Router)
 
 function castRouteProps(route) {
   return {
-    slug: String(route.params.slug),
-    craftToken: String(route.query.token),
-    craftPreview: String(route.query['x-craft-preview']),
+    slug: route.params.slug,
+    craftToken: route.query.token,
+    craftPreview: route.query['x-craft-preview'],
   }
 }
 

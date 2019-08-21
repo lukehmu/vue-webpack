@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 
 import axios from 'axios'
 
+import router from '../router'
+
 Vue.use(Vuex)
 // public token
 const bearerToken = process.env.BEARER_TOKEN
@@ -40,8 +42,11 @@ const actions = {
              }
            }
           `
-    await axios.post(process.env.API_URL, {
+    // router.currentRoute.query.token
+    const postURL = router.currentRoute.query['x-craft-preview'] ? `${process.env.API_URL}?token=${router.currentRoute.query.token}` : process.env.API_URL
+    await axios.post(postURL, {
       query: beerQuery,
+      // params: { token: '7DJObxoCMsod30DodUeC0Ion3J_UX_Nh', 'x-craft-preview': 'y3oexr2RVq' },
     }).then((res) => res.data.data.entries)
       .then((beers) => {
         commit('SET_BEERS', beers)
