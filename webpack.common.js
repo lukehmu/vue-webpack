@@ -4,6 +4,7 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin') // eslint-disable-line import/no-extraneous-dependencies
 const { CleanWebpackPlugin } = require('clean-webpack-plugin') // eslint-disable-line import/no-extraneous-dependencies
 const VueLoaderPlugin = require('vue-loader/lib/plugin') // eslint-disable-line import/no-extraneous-dependencies
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 module.exports = {
   entry: {
@@ -24,6 +25,7 @@ module.exports = {
       'process.env.BEARER_TOKEN': `"${process.env.BEARER_TOKEN}"`,
       'process.env.API_URL': `"${process.env.API_URL}"`,
     }),
+    new VuetifyLoaderPlugin(),
   ],
   module: {
     rules: [
@@ -32,6 +34,7 @@ module.exports = {
         use: [
           'style-loader',
           'css-loader',
+          // { loader: 'vue-style-loader' },
         ],
       },
       {

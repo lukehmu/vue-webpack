@@ -43,6 +43,7 @@ module.exports = merge(common, {
           { loader: MiniCssExtractPlugin.loader },
           { loader: 'css-loader' },
           { loader: 'sass-loader' },
+          // { loader: 'vue-style-loader' },
         ],
       },
       {

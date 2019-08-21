@@ -5,6 +5,7 @@ import router from './router'
 import store from './store'
 import App from './App.vue'
 import '../sass/custom.scss'
+import vuetify from './plugins/vuetify'
 
 
 Vue.use(Card)
@@ -26,6 +27,7 @@ new Vue({
   el: '#app',
   router,
   store,
+  vuetify,
   components: { App },
   template: '<App/>',
 })
