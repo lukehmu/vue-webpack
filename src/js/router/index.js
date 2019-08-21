@@ -9,7 +9,7 @@ function castRouteProps(route) {
   return {
     slug: String(route.params.slug),
     craftToken: String(route.query.token),
-    craftPreview: String(`${route.query}.x-craft-preview`),
+    craftPreview: String(route.query['x-craft-preview']),
   }
 }
 
