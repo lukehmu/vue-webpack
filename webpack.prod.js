@@ -4,6 +4,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin') // eslint-disable-line import/no-extraneous-dependencies
 const TerserPlugin = require('terser-webpack-plugin') // eslint-disable-line import/no-extraneous-dependencies
 const merge = require('webpack-merge') // eslint-disable-line import/no-extraneous-dependencies
+const sass = require('sass') // eslint-disable-line import/no-extraneous-dependencies
+const fibers = require('fibers') // eslint-disable-line import/no-extraneous-dependencies
 const common = require('./webpack.common.js')
 
 module.exports = merge(common, {
@@ -38,11 +40,18 @@ module.exports = merge(common, {
   module: {
     rules: [
       {
-        test: /\.scss$/,
+        test: /\.s[ac]ss$/i,
         use: [
+          { loader: 'vue-style-loader' },
           { loader: MiniCssExtractPlugin.loader },
           { loader: 'css-loader' },
-          { loader: 'sass-loader' },
+          {
+            loader: 'sass-loader',
+            options: {
+              implementation: sass,
+              fiber: fibers,
+            },
+          },
           // { loader: 'vue-style-loader' },
         ],
       },

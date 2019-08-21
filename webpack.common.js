@@ -6,6 +6,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin') // eslint-disable
 const VueLoaderPlugin = require('vue-loader/lib/plugin') // eslint-disable-line import/no-extraneous-dependencies
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
+
 module.exports = {
   entry: {
     app: './src/js/index.js',
