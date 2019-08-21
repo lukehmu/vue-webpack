@@ -5,6 +5,15 @@ import Detail from '../components/Detail.vue'
 
 Vue.use(Router)
 
+function castRouteProps(route) {
+  return {
+    slug: String(route.params.slug),
+    craftToken: String(route.query.token),
+    craftPreview: String(`${route.query}.x-craft-preview`),
+  }
+}
+
+
 export default new Router({
   mode: 'history',
   routes: [
@@ -18,7 +27,8 @@ export default new Router({
       path: '/detail/:slug',
       name: 'beer-detail',
       component: Detail,
-      props: true,
+      // props: true,
+      props: castRouteProps,
     },
     // {
     //   path: '*',

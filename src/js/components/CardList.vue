@@ -44,7 +44,7 @@
         </b-list-group>
 
         <b-card-body>
-          <router-link :to="{ name: 'beer-detail', params: { beer, slug: beer.slug }}">
+          <router-link :to="{ name: 'beer-detail', params: { slug: beer.slug }}">
             Link text - Vue Router
           </router-link>
         </b-card-body>
