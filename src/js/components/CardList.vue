@@ -2,22 +2,31 @@
   <v-container fluid>
     <v-item-group class="text-center">
       <v-progress-circular
-        v-if="beersState == 'pending'"
+        v-if="sharedState.state.beersStatus == 'pending'"
         indeterminate
         color="blue-grey"
       ></v-progress-circular>
-      <div v-if="beersState == 'error'">
+      <div v-if="sharedState.state.beersStatus == 'error'">
         Error:<code> {{ dataError }}</code>
       </div>
       <v-btn
-        v-if="beersState == 'loaded'"
+        v-if="sharedState.state.beersStatus == 'loaded'"
         @click="shuffle"
       >
         <v-icon>mdi-shuffle-variant</v-icon>
         Shuffle
       </v-btn>
+      <v-btn
+        v-if="sharedState.state.beersStatus == 'loaded'"
+        @click="sort"
+      >
+        <v-icon>mdi-sort</v-icon>
+        Sort by %
+      </v-btn>
     </v-item-group>
-    <v-item-group>
+    <v-item-group
+      v-if="sharedState.state.beersStatus == 'loaded'"
+    >
       <!-- <v-row> -->
       <transition-group
         tag="div"
@@ -57,16 +66,10 @@ export default {
   data() {
     return {
       sharedState: this.$store,
-      beerList: '',
+      sortPercentageAsc: false,
     }
   },
   computed: {
-    beers() {
-      return this.$store.getters.getBeers
-    },
-    beersState() {
-      return this.$store.getters.getBeersStatus
-    },
   },
   watch: {
   },
@@ -78,6 +81,14 @@ export default {
   methods: {
     shuffle() {
       this.sharedState.state.beers = shuffle(this.sharedState.state.beers)
+    },
+    sort() {
+      this.sortPercentageAsc = !this.sortPercentageAsc
+      this.sharedState.state.beers.sort((a, b) => {
+        const x = a.percentage
+        const y = b.percentage
+        return (this.sortPercentageAsc ? x > y : x < y)
+      })
     },
   },
 }

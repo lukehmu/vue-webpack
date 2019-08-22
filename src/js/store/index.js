@@ -24,8 +24,7 @@ const mutations = {
 
 const actions = {
   async loadBeer({ commit }) {
-    commit('SET_BEERSSTATUS', 'pending')
-    this.dataLoading = true
+    await commit('SET_BEERSSTATUS', 'pending')
     const beerQuery = `
            {
              entries(limit:5) {
@@ -43,35 +42,36 @@ const actions = {
            }
           `
     const postURL = router.currentRoute.query['x-craft-preview'] ? `${process.env.API_URL}?token=${router.currentRoute.query.token}` : process.env.API_URL
-    await axios.post(postURL, {
-      query: beerQuery,
-    }).then((res) => res.data.data.entries)
-      .then((beers) => {
-        commit('SET_BEERS', beers)
-        commit('SET_BEERSSTATUS', 'loaded')
-      })
-      .catch((error) => {
-        console.log('err', error)
-        commit('SET_BEERSSTATUS', 'error')
-      })
+    // if we already have the data - skip fetching it again
+    if (!this.state.beers) {
+      console.log('Fetching from API')
+      await axios.post(postURL, {
+        query: beerQuery,
+      }).then((res) => res.data.data.entries)
+        .then((beers) => {
+          commit('SET_BEERS', beers)
+          commit('SET_BEERSSTATUS', 'loaded')
+        })
+        .catch((error) => {
+          console.log('err', error)
+          commit('SET_BEERSSTATUS', 'error')
+        })
+    } else {
+      console.log('Already fetched from API')
+      commit('SET_BEERSSTATUS', 'loaded')
+    }
   },
 
 }
 
 const getters = {
-  getBeers(state) {
-    return state.beers
-  },
-  getBeersStatus(state) {
-    return state.beersStatus
-  },
-  getBeer(state, slug) {
-    return state.beers.find((beer) => beer.slug === slug)
-  },
+  getBeers: (state) => state.beers,
+  getBeersStatus: (state) => state.beersStatus,
+  getBeerBySlug: (state) => (slug) => state.beers.find((beers) => beers.slug === slug),
 }
 
 const state = {
-  beers: {},
+  beers: null,
   beersStatus: '',
 }
 

@@ -2,15 +2,15 @@
   <v-container fluid>
     <v-item-group class="text-center">
       <v-progress-circular
-        v-if="beersState == 'pending'"
+        v-if="beersStatus == 'pending'"
         indeterminate
         color="blue-grey"
       ></v-progress-circular>
-      <div v-if="beersState == 'error'">
+      <div v-if="beersStatus == 'error'">
         Error:<code> {{ dataError }}</code>
       </div>
     </v-item-group>
-    <v-item-group>
+    <v-item-group v-if="beersStatus == 'loaded'">
       <v-container>
         <v-row>
           <Card
@@ -39,24 +39,9 @@ export default {
       type: String,
       default: '',
     },
-    craftToken: {
-      type: String,
-      default: '',
-    },
-    craftPreview: {
-      type: String,
-      default: '',
-    },
-    beer: {
-      type: Object,
-      default() {
-        return { message: 'No props passed from CardList' }
-      },
-    },
   },
   data() {
     return {
-      beerResult: 'No need to go to the API - already have props from CardList',
       dataLoaded: null,
       dataLoading: false,
       dataError: null,
@@ -64,14 +49,17 @@ export default {
   },
   computed: {
     singleBeer() {
-      return this.$store.getters.getBeers.find((beer) => beer.slug === this.slug)
+      return this.$store.getters.getBeerBySlug(this.slug)
     },
-    beersState() {
+    beersStatus() {
       return this.$store.getters.getBeersStatus
     },
   },
   created() {
     this.$store.dispatch('loadBeer')
+  },
+  mounted() {
+
   },
   methods: {
 

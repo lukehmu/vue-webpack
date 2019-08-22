@@ -8,8 +8,6 @@ Vue.use(Router)
 function castRouteProps(route) {
   return {
     slug: route.params.slug,
-    craftToken: route.query.token,
-    craftPreview: route.query['x-craft-preview'],
   }
 }
 
@@ -30,11 +28,11 @@ export default new Router({
       // props: true,
       props: castRouteProps,
     },
-    // {
-    //   path: '*',
-    //   name: '404',
-    //   component: { template: '<div class="container">404 - Nothing here</div>' },
-    // },
+    {
+      path: '*',
+      name: '404',
+      component: { template: '<div class="container">404 - Nothing here</div>' },
+    },
   ],
   scrollBehavior(to, from, savedPosition) {
     return { x: 0, y: 0 }
