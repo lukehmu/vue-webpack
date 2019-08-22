@@ -7,9 +7,10 @@
       >
         <v-toolbar-title>
           <v-btn
-            color="deep-purple accent-2"
+            color="blue-grey"
             to="/"
           >
+            <v-icon>mdi-home</v-icon>
             Home - Vue Router with CraftQL
           </v-btn>
         </v-toolbar-title>

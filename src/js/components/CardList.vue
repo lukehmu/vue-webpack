@@ -1,9 +1,11 @@
 <template>
   <v-container fluid>
-    <v-item-group>
-      <div v-if="beersState == 'pending'">
-        Loading...
-      </div>
+    <v-item-group class="text-center">
+      <v-progress-circular
+        v-if="beersState == 'pending'"
+        indeterminate
+        color="blue-grey"
+      ></v-progress-circular>
       <div v-if="beersState == 'error'">
         Error:<code> {{ dataError }}</code>
       </div>
@@ -11,6 +13,7 @@
         v-if="beersState == 'loaded'"
         @click="shuffle"
       >
+        <v-icon>mdi-shuffle-variant</v-icon>
         Shuffle
       </v-btn>
     </v-item-group>

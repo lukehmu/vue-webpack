@@ -23,7 +23,7 @@
         v-if="slug"
         text
         :to="{ name: 'beer-detail', params: { slug: slug }}"
-        color="deep-purple accent-2"
+        color="blue-grey lighten-2"
       >
         <v-icon>mdi-mouse</v-icon>
         Detail link
@@ -62,8 +62,8 @@ export default {
       default: '',
     },
     dateCreated: {
-      type: Number,
-      default: 0,
+      type: String,
+      default: '',
     },
   },
 }
