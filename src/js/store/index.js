@@ -27,19 +27,19 @@ const actions = {
     await commit('SET_BEERSSTATUS', 'pending')
     const beerQuery = `
            {
-             entries(limit:5) {
-               ...on Beer {
-                 id
-                 slug
-                 uri
-                 title
-                 description
-                 dateCreated
-                 percentage
-                 image { url }
-               }
-             }
-           }
+              entries (section: "beer"){
+                title
+                id
+                slug
+                uri
+                title
+                dateCreated @formatDateTime (format: "d/m/Y")
+                ... on beer_beer_Entry {
+                  percentage
+                  image { url }
+                }	
+              }
+            }
           `
     const postURL = router.currentRoute.query['x-craft-preview'] ? `${process.env.API_URL}?token=${router.currentRoute.query.token}` : process.env.API_URL
     // if we already have the data - skip fetching it again
